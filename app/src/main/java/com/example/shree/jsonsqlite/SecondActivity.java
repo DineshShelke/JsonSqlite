@@ -1,11 +1,14 @@
 package com.example.shree.jsonsqlite;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -18,10 +21,27 @@ public class SecondActivity extends AppCompatActivity {
     RecyclerAdapter recyclerAdapter;
     private ArrayList<Data> arrayList = new ArrayList<>();
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if(getSupportActionBar() != null){
+//            getSupportActionBar().setTitle("JsonSqlite");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         dbHelper = new DbHelper(SecondActivity.this);
 
